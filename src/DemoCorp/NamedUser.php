@@ -4,7 +4,6 @@ namespace DemoCorp;
 
 class NamedUser
 {
-
     private $name;
 
     public function __construct($name)
