@@ -6,32 +6,27 @@ use Inviqa\Db;
 
 class UserController
 {
-    private $db;
+    /**
+     * @var UserRepository
+     */
+    private $userRepository;
 
-    public function __construct()
+    public function __construct(UserRepository $userRepository)
     {
-        $path = tempnam(sys_get_temp_dir(), 'data-storage');
-
-        if (!is_dir($path)) {
-            unlink($path);
-            mkdir($path);
-        }
-
-        $this->db = new Db($path);
+        $this->userRepository = $userRepository;
     }
 
     public function saveAction($name)
     {
         $user = new NamedUser($name);
-        $id = $this->db->saveData(['name' => $user->getName()]);
+        $id = $this->userRepository->save($user);
 
         return ['id' => $id];
     }
 
     public function displayAction($id)
     {
-        $data = $this->db->loadData($id);
-        $user = new NamedUser($data['username']);
+        $user = $this->userRepository->findById($id);
 
         return ['user' => $user];
     }
