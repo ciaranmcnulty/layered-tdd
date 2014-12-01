@@ -7,11 +7,11 @@ use Prophecy\Argument;
 
 class UserControllerSpec extends ObjectBehavior
 {
-    function it_saves_users_to_repository_with_name_provided()
+    function it_saves_a_user_with_name_provided_to_the_repository_and_returns_id_as_array()
     {
     }
 
-    function it_looks_up_users_by_id_and_displays_then()
+    function it_finds_user_by_id_and_returns_an_array_containing_it()
     {
     }
 }
