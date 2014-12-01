@@ -30,6 +30,7 @@ class Db
         }
         $id = base64_encode(time());
         file_put_contents($this->path . '/' . $id, serialize($data));
+        return $id;
     }
 
     /**
@@ -42,6 +43,9 @@ class Db
     {
         if (!$this->path) {
             throw new \RuntimeException('No data path set up');
+        }
+        if (!file_exists($this->path . '/' . $id)) {
+            throw new \RuntimeException('File not found');
         }
         return unserialize(file_get_contents($this->path . '/' . $id));
     }
